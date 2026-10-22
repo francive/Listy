@@ -312,7 +312,7 @@
 
     <!-- Footer -->
     <footer class="max-w-xl w-full mx-auto px-4 py-4 text-center text-[11px] text-stone-400 dark:text-stone-600 flex justify-between items-center border-t border-stone-200/50 dark:border-stone-900">
-        <span>Listing — Mi Enfoque Diario</span>
+        <span>Listy — Mi Enfoque Diario</span>
         <button onclick="resetDay()" class="hover:text-red-500 transition">Reiniciar Día</button>
     </footer>
 
@@ -411,7 +411,7 @@
             if (!isSoundEnabled) stopAlarmSound();
             document.getElementById('sound-icon-on').classList.toggle('hidden', !isSoundEnabled);
             document.getElementById('sound-icon-off').classList.toggle('hidden', isSoundEnabled);
-            localStorage.setItem('listing_sound', isSoundEnabled);
+            localStorage.setItem('Listy_sound', isSoundEnabled);
         }
 
         // --- Web Notifications API & Service Worker Integration ---
@@ -472,8 +472,8 @@
 
             // Inline PWA Manifest Injection
             const manifest = {
-                name: "Listing — Mi Enfoque Diario",
-                short_name: "Listing",
+                name: "Listy — Mi Enfoque Diario",
+                short_name: "Listy",
                 start_url: ".",
                 display: "standalone",
                 background_color: "#1c1917",
@@ -537,7 +537,7 @@
                 pauseTimer();
                 remainingSecondsOnPause = 0;
                 triggerAlarmSound();
-                sendNativeNotification("¡Tiempo Finalizado! ⏰", "Tu bloque de enfoque en Listing ha terminado.");
+                sendNativeNotification("¡Tiempo Finalizado! ⏰", "Tu bloque de enfoque en Listy ha terminado.");
                 confetti({ particleCount: 60, spread: 70, origin: { y: 0.5 } });
             } else {
                 updateTimerDisplay(diffSeconds);
@@ -625,7 +625,7 @@
         }
 
         function saveTimerState() {
-            localStorage.setItem('listing_timer', JSON.stringify({
+            localStorage.setItem('Listy_timer', JSON.stringify({
                 totalConfiguredSeconds,
                 remainingSecondsOnPause,
                 timerEndTime,
@@ -667,19 +667,19 @@
 
         // --- Storage Handlers ---
         function saveState() {
-            localStorage.setItem('listing_tasks_v1', JSON.stringify(tasks));
-            localStorage.setItem('listing_dark', isDarkMode);
+            localStorage.setItem('Listy_tasks_v1', JSON.stringify(tasks));
+            localStorage.setItem('Listy_dark', isDarkMode);
         }
 
         function loadState() {
-            const savedSound = localStorage.getItem('listing_sound');
+            const savedSound = localStorage.getItem('Listy_sound');
             if (savedSound !== null) {
                 isSoundEnabled = savedSound === 'true';
                 document.getElementById('sound-icon-on').classList.toggle('hidden', !isSoundEnabled);
                 document.getElementById('sound-icon-off').classList.toggle('hidden', isSoundEnabled);
             }
 
-            const savedTasks = localStorage.getItem('listing_tasks_v1');
+            const savedTasks = localStorage.getItem('Listy_tasks_v1');
             if (savedTasks) {
                 try { tasks = JSON.parse(savedTasks); } catch(e) { tasks = []; }
             } else {
@@ -689,13 +689,13 @@
                 ];
             }
 
-            const savedDark = localStorage.getItem('listing_dark');
+            const savedDark = localStorage.getItem('Listy_dark');
             if (savedDark === 'true' || (!savedDark && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 enableDarkMode(true);
             }
 
             // Restore persistent active timer state
-            const savedTimer = localStorage.getItem('listing_timer');
+            const savedTimer = localStorage.getItem('Listy_timer');
             if (savedTimer) {
                 try {
                     const parsed = JSON.parse(savedTimer);
